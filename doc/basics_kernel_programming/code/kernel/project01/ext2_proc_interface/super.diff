@@ -1,0 +1,26 @@
+--- ext2/super.c	2012-08-12 11:47:28.747098783 +0530
++++ modified_ext2/super.c	2012-08-12 11:47:28.215098771 +0530
+@@ -1505,6 +1505,14 @@
+         err = register_filesystem(&ext2_fs_type);
+ 	if (err)
+ 		goto out;
++/*
++ * We will make our proc interface here
++ */
++	err = ext2_init_proc_interface();
++	if (err) {
++		printk(KERN_INFO "linuxKernel101 : Could not register proc \
++                interface, exiting");
++		goto out;
++	}
+ 	return 0;
+ out:
+ 	destroy_inodecache();
+@@ -1515,6 +1523,7 @@
+ 
+ static void __exit exit_ext2_fs(void)
+ {
++	ext2_proc_remove();
+ 	unregister_filesystem(&ext2_fs_type);
+ 	destroy_inodecache();
+ 	exit_ext2_xattr();

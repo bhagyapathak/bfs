@@ -1,0 +1,11 @@
+--- ext2/Makefile	2012-08-12 11:01:04.087035244 +0530
++++ modified_ext2/Makefile	2012-08-12 11:00:43.087034765 +0530
+@@ -5,7 +5,7 @@
+ obj-$(CONFIG_EXT2_FS) += ext2.o
+ 
+ ext2-y := balloc.o dir.o file.o ialloc.o inode.o \
+-	  ioctl.o namei.o super.o symlink.o
++	  ioctl.o namei.o super.o symlink.o proc.o
+ 
+ ext2-$(CONFIG_EXT2_FS_XATTR)	 += xattr.o xattr_user.o xattr_trusted.o
+ ext2-$(CONFIG_EXT2_FS_POSIX_ACL) += acl.o

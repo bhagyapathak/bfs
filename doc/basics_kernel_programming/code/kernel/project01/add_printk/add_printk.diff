@@ -1,0 +1,11 @@
+--- ext2/file.c	2012-08-12 11:01:04.087035244 +0530
++++ modified_ext2/file.c	2012-08-12 11:00:42.591034753 +0530
+@@ -45,7 +45,7 @@
+ 	int ret;
+ 	struct super_block *sb = file->f_mapping->host->i_sb;
+ 	struct address_space *mapping = sb->s_bdev->bd_inode->i_mapping;
+-
++	printk (KERN_INFO "linuxKernel101 : ext2_fsync called");
+ 	ret = generic_file_fsync(file, start, end, datasync);
+ 	if (ret == -EIO || test_and_clear_bit(AS_EIO, &mapping->flags)) {
+ 		/* We don't really know where the IO error happened... */

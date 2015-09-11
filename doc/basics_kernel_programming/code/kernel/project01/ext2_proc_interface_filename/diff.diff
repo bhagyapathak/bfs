@@ -1,0 +1,150 @@
+--- ext2.h	2012-08-03 20:13:59.919686483 +0530
++++ /usr/src/kernels/linux-3.4.6/fs/ext2/ext2.h	2012-08-03 20:25:04.819191787 +0530
+@@ -346,6 +346,7 @@
+ 			__u32	m_i_reserved2[2];
+ 		} masix2;
+ 	} osd2;				/* OS dependent 2 */
++	__le32  muid;		/* Low 16 bits of the user who last modified the file */
+ };
+ 
+ #define i_size_high	i_dir_acl
+@@ -497,7 +498,7 @@
+ #define EXT2_CURRENT_REV	EXT2_GOOD_OLD_REV
+ #define EXT2_MAX_SUPP_REV	EXT2_DYNAMIC_REV
+ 
+-#define EXT2_GOOD_OLD_INODE_SIZE 128
++#define EXT2_GOOD_OLD_INODE_SIZE 256
+ 
+ /*
+  * Feature set definitions
+@@ -689,6 +690,7 @@
+ 	struct mutex truncate_mutex;
+ 	struct inode	vfs_inode;
+ 	struct list_head i_orphan;	/* unlinked but open inodes */
++	__le32 muid;
+ };
+ 
+ /*
+@@ -786,6 +788,11 @@
+ extern const struct inode_operations ext2_file_inode_operations;
+ extern const struct file_operations ext2_file_operations;
+ extern const struct file_operations ext2_xip_file_operations;
++/* linuxKernel101 */
++extern int my_open(struct inode *inode, struct file *file); 
++
++int ext2_init_proc_interface(void);
++void ext2_proc_remove(void);
+ 
+ /* inode.c */
+ extern const struct address_space_operations ext2_aops;
+--- file.c	2012-08-03 19:15:39.385786619 +0530
++++ /usr/src/kernels/linux-3.4.6/fs/ext2/file.c	2012-08-03 19:46:13.424883557 +0530
+@@ -45,7 +45,7 @@
+ 	int ret;
+ 	struct super_block *sb = file->f_mapping->host->i_sb;
+ 	struct address_space *mapping = sb->s_bdev->bd_inode->i_mapping;
+-
++	printk (KERN_INFO "linuxKernel101 : ext2_fsync called");
+ 	ret = generic_file_fsync(file, start, end, datasync);
+ 	if (ret == -EIO || test_and_clear_bit(AS_EIO, &mapping->flags)) {
+ 		/* We don't really know where the IO error happened... */
+@@ -71,7 +71,7 @@
+ 	.compat_ioctl	= ext2_compat_ioctl,
+ #endif
+ 	.mmap		= generic_file_mmap,
+-	.open		= dquot_file_open,
++	.open		= my_open,
+ 	.release	= ext2_release_file,
+ 	.fsync		= ext2_fsync,
+ 	.splice_read	= generic_file_splice_read,
+@@ -79,6 +79,21 @@
+ };
+ 
+ 
++int my_open(struct inode *inode, struct file *file)
++{
++       int error;
++       printk (KERN_INFO "linuxKernel101 : Calling my open");
++       printk (KERN_INFO "linuxKernel101 : Size of inode %lu", sizeof(struct ext2_inode));
++       error=dquot_file_open(inode, file);
++       if (!error && (file->f_mode & FMODE_WRITE)) {
++		EXT2_I(inode)->muid =  current->real_cred->uid;
++       		printk (KERN_INFO "linuxKernel101 : uid of user modifying me is %u", EXT2_I(inode)->muid);
++		
++	}		
++       return error; 
++}       
++
++
+ #ifdef CONFIG_EXT2_FS_XIP
+ const struct file_operations ext2_xip_file_operations = {
+ 	.llseek		= generic_file_llseek,
+@@ -89,7 +104,7 @@
+ 	.compat_ioctl	= ext2_compat_ioctl,
+ #endif
+ 	.mmap		= xip_file_mmap,
+-	.open		= dquot_file_open,
++	.open		= my_open,
+ 	.release	= ext2_release_file,
+ 	.fsync		= ext2_fsync,
+ };
+--- inode.c	2012-08-03 19:15:58.154171986 +0530
++++ /usr/src/kernels/linux-3.4.6/fs/ext2/inode.c	2012-08-03 19:15:57.484086827 +0530
+@@ -1350,6 +1350,7 @@
+ 	ei->i_state = 0;
+ 	ei->i_block_group = (ino - 1) / EXT2_INODES_PER_GROUP(inode->i_sb);
+ 	ei->i_dir_start_lookup = 0;
++	ei->muid = raw_inode->muid; 
+ 
+ 	/*
+ 	 * NOTE! The in-memory inode i_data array is in little-endian order
+--- Makefile	2012-07-20 00:41:49.000000000 +0530
++++ /usr/src/kernels/linux-3.4.6/fs/ext2/Makefile	2012-08-03 20:18:51.664765649 +0530
+@@ -5,7 +5,7 @@
+ obj-$(CONFIG_EXT2_FS) += ext2.o
+ 
+ ext2-y := balloc.o dir.o file.o ialloc.o inode.o \
+-	  ioctl.o namei.o super.o symlink.o
++	  ioctl.o namei.o super.o symlink.o proc.o
+ 
+ ext2-$(CONFIG_EXT2_FS_XATTR)	 += xattr.o xattr_user.o xattr_trusted.o
+ ext2-$(CONFIG_EXT2_FS_POSIX_ACL) += acl.o
+--- super.c	2012-08-03 20:14:36.210298828 +0530
++++ /usr/src/kernels/linux-3.4.6/fs/ext2/super.c	2012-08-03 21:08:02.758271957 +0530
+@@ -1497,14 +1497,25 @@
+ static int __init init_ext2_fs(void)
+ {
+ 	int err = init_ext2_xattr();
+-	if (err)
++	if (err) {
+ 		return err;
++	}
+ 	err = init_inodecache();
+-	if (err)
++	if (err) {
+ 		goto out1;
++	}
+         err = register_filesystem(&ext2_fs_type);
+-	if (err)
++	if (err) {
+ 		goto out;
++	}
++/*
++ * We will make our proc interface here
++ */
++	err = ext2_init_proc_interface();
++	if (err) {
++		printk(KERN_INFO "linuxKernel101 : Could not register proc interface, exiting");
++		goto out;
++	}
+ 	return 0;
+ out:
+ 	destroy_inodecache();
+@@ -1517,6 +1528,7 @@
+ {
+ 	unregister_filesystem(&ext2_fs_type);
+ 	destroy_inodecache();
++	ext2_proc_remove();
+ 	exit_ext2_xattr();
+ }
+ 

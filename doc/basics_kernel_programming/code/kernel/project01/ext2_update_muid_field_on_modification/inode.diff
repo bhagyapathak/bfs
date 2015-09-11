@@ -1,0 +1,18 @@
+--- ext2/inode.c	2012-08-12 11:01:04.075035244 +0530
++++ modieifed_ext2/inode.c	2012-08-12 14:13:41.803298962 +0530
+@@ -1350,6 +1350,7 @@
+ 	ei->i_state = 0;
+ 	ei->i_block_group = (ino - 1) / EXT2_INODES_PER_GROUP(inode->i_sb);
+ 	ei->i_dir_start_lookup = 0;
++	ei->muid = raw_inode->muid; 
+ 
+ 	/*
+ 	 * NOTE! The in-memory inode i_data array is in little-endian order
+@@ -1463,6 +1464,7 @@
+ 	raw_inode->i_frag = ei->i_frag_no;
+ 	raw_inode->i_fsize = ei->i_frag_size;
+ 	raw_inode->i_file_acl = cpu_to_le32(ei->i_file_acl);
++	raw_inode->muid = ei->muid;
+ 	if (!S_ISREG(inode->i_mode))
+ 		raw_inode->i_dir_acl = cpu_to_le32(ei->i_dir_acl);
+ 	else {
