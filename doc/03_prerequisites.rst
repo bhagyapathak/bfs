@@ -9,18 +9,9 @@ The coding and testing enviornment
 
 #. Virtual Machine with Linux Installed on it.
 #. Install gcc, vim, and git
-#. Install 4.2.0-rc7 kernel on it. Get the kernel from kernel.org
+#. Install 4.2.0-rc7 kernel on it. Get the kernel from kernel.org. See  :ref:`install_linux_kernel-label`.
+#. Write and test a sample kernel module. See :ref:`test_kernel_module-label`.
 
-::
-  
-  You need to be root or use sudo
-  tar -xf tarball
-  make
-  make modules
-  make modules_install
-  make install
-
-#. Test if you are able to insert a module or no. Save the following code with the given filenames and test the following steps.
 
 ::
   
@@ -63,20 +54,55 @@ The coding and testing enviornment
 
   Read about it if required.
 
-*************
-Reading Stuff
-*************
+*******
+Reading
+*******
 
-The second tasks are as follows - read the following chapters of the following
-attached books.
 
 This is important so that we get connected to the fundamentals of operating
 systems. You are free to read the whole books as well !!
 
-Linux Kernel Development - Chapter 1, 2, 5, 12 and 13
+.. note:: For those who are already comfortable with the chapters should also skim the chapters once just to revise them.
 
-Understanding The Unix Kernel - Chapter 12 and Chapter 18
+#. Linux Kernel Development
+    Chapter 01 - Introduction to the Linux Kernel 
+    Chapter 02 - Getting startted with the kernel
+    Chapter 05 - System Calls
+    Chapter 12 - Memory Management
+    Chapter 13 - The Virtual File System
 
-The Design Of Unix Operating System - Chapters 1, 2, 3, 4, 5
+#. Understanding The Unix Kernel
+    Chapter 12 - The Virtual File System
+    Chapter 18 - The Ext2 File System
 
-For those who are already comfortable with the chapters should also skim the chapters once just to revise them.
+#. The Design Of Unix Operating System
+    Chapter 01 - General Overview of the system
+    Chapter 02 - Introduction to the kernel
+    Chapter 03 - The Buffer Cache
+    Chapter 04 - Internal Representation Of Files
+    Chapter 05 - System Calls For The File System
+
+
+.. _install_linux_kernel-label:
+
+***********************
+Installing Linux Kernel
+***********************
+
+
+You need to be root or use sudo
+
+  
+#. :command:`tar -xf tarball`
+#. :command:`make`
+#. :command:`make modules`
+#. :command:`make modules_install`
+#. :command:`make install`
+
+.. _test_kernel_module-label:
+
+******************
+Test Kernel Module
+******************
+
+
