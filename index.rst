@@ -14,6 +14,8 @@ Contents:
     :name: mastertoc
     :titlesonly:
 
+    Preface <doc/00_preface.rst>
+    Acknowledgement <doc/01_acknowledgment.rst>
     Prerequisites <doc/03_prerequisites.rst>
     Basics of Kernel Programming <doc/basics_kernel_programming/basics.rst>
     Kernel Module Programming <doc/basics_kernel_programming/kernel_modules.rst>
