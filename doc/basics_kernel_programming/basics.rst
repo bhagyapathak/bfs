@@ -1,6 +1,10 @@
-==================
+##################
 Kernel Programming
-==================
+##################
+
+======
+Kernel
+======
 
 * This is simple C code.
 * This is a **LARGE** C program.
@@ -65,7 +69,7 @@ Hands-on make menunconfig - tweak settings
       remove VFAT support i.e. ``BLANK``
       add NTFS module support i.e. ``M``
 
-* Go back using <esc><esc>
+* Go back using ``<esc> <esc>``
 
 * Save the configuration, you will get a ``.config`` file in your directory.
 
@@ -75,6 +79,7 @@ Hands-on make menunconfig - tweak settings
 
 * Compile the kernel using the steps provided in the slide above.
 
+=====================================
 Making Changes to Kernel Code - Steps
 =====================================
 
@@ -85,7 +90,7 @@ Making Changes to Kernel Code - Steps
 * Check the working of the code.
 
 Hands On - Making changes to Kernel Code
-----------------------------------------
+========================================
 
 * Make changes to the ext2 code. In the ``ext2_fsync`` function, add a ``printk`` and compile the code. Copy the modules to the ``/lib/XX`` directory and test by mounting a ext2 file system. Check ``dmesg`` for the printed message. Open/Write a file using ``vim`` to see the effects.
 * The diff is based of ``linux-3.4.6 Kernel`` - use the same kernel version to avoid unneccessary problems at this stage.

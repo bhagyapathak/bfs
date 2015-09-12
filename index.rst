@@ -16,6 +16,7 @@ Contents:
 
     Prerequisites <doc/03_prerequisites.rst>
     Basics of Kernel Programming <doc/basics_kernel_programming/basics.rst>
+    Kernel Module Programming <doc/basics_kernel_programming/kernel_modules.rst>
 
 Indices and tables
 ==================
