@@ -83,21 +83,6 @@ systems. You are free to read the whole books as well !!
     Chapter 05 - System Calls For The File System
 
 
-.. _install_linux_kernel-label:
-
-***********************
-Installing Linux Kernel
-***********************
-
-
-You need to be root or use sudo
-
-  
-#. :command:`tar -xf tarball`
-#. :command:`make`
-#. :command:`make modules`
-#. :command:`make modules_install`
-#. :command:`make install`
 
 .. _test_kernel_module-label:
 

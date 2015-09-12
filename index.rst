@@ -9,9 +9,13 @@ Welcome to Basic Filesystem's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
+    :caption: Table of Contents
+    :name: mastertoc
+    :titlesonly:
 
-        Prerequisites <doc/03_prerequisites.rst>
+    Prerequisites <doc/03_prerequisites.rst>
+    Basics of Kernel Programming <doc/basics_kernel_programming/basics.rst>
 
 Indices and tables
 ==================
@@ -19,4 +23,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
