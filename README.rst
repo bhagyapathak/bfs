@@ -18,8 +18,8 @@ Reading the document
 #. Checkout the Repo. See :ref:`checkout_repo-label`.
 #. Install sphinx using the command ``pip install -U Sphinx``.
 #. Install ``rst2pdf`` for reading this document in pdf. Run ``rst2pdf README.rst``. Read the pdf as ``README.pdf``
-#. Make html ``make html``. Open the document ``_build/html/index.html``.
-#. Make pdf ``make latexpdf``. Open the document ``_build/latex/BasicFilesystem.pdf``
+#. Use ``./hh`` file to read the html version of the document. Alternatively make html ``make html``. Open the document ``_build/html/index.html``.
+#. Use ``./pp`` file to read the PDF version of the doucment. Alternatively make pdf ``make latexpdf``. Open the document ``_build/latex/BasicFilesystem.pdf``
 
 .. _checkout_repo-label:
 *****************
