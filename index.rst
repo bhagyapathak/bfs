@@ -27,15 +27,12 @@ Contents:
         File System <doc/file_system.rst>
         FS Supported <doc/fs_supported.rst>
         Mounting <doc/mounting.rst>
-        Mount <doc/mount.rst>
         Notes <doc/notes.rst>
         System Calls <doc/syscall.rst>
-        System Calls 2 <doc/systemcalls.rst>
         Understanding File Systems<doc/understanding_filesystems.rst>
         Virtual File System Layer <doc/vfs.rst>
         Device Drivers <doc/device_drivers.rst>
         Ext3 FS <doc/ext3_file_system.rst>
-        Ext3 File System <doc/ext3_file_system.rst>
 
 Indices and tables
 ==================
