@@ -12,8 +12,8 @@ Welcome to Basic Filesystem's documentation!
     :name: mastertoc
     :titlesonly:
 
-    Preface <doc/01_book/00_introduction.rst>
-    Basics of Kernel Programming <doc/02_basics_of_kernel_programming/00_introduction.rst>
+    Introduction to the Book        <doc/01_book/00_index.rst>
+    Basics of Kernel Programming    <doc/02_basics_of_kernel_programming/00_index.rst>
 
 
 
