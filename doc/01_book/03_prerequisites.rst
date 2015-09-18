@@ -58,7 +58,6 @@ The coding and testing enviornment
 Reading
 *******
 
-
 This is important so that we get connected to the fundamentals of operating
 systems. You are free to read the whole books as well !!
 
@@ -82,12 +81,9 @@ systems. You are free to read the whole books as well !!
     Chapter 04 - Internal Representation Of Files
     Chapter 05 - System Calls For The File System
 
-
-
 .. _test_kernel_module-label:
 
 ******************
 Test Kernel Module
 ******************
-
 

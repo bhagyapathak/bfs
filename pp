@@ -5,5 +5,5 @@
 #
 
 make latexpdf
-evince _build/latex/BasicFilesystem.pdf
+evince _build/latex/BasicFilesystem.pdf &
 

@@ -1,10 +1,10 @@
-##################
-Kernel Programming
-##################
-
-======
+******
 Kernel
-======
+******
+
+============
+Introduction
+============
 
 * This is simple C code.
 * This is a **LARGE** C program.
@@ -57,9 +57,9 @@ Compiling a Kernel - steps
 * :command:`make install` - installs the kernel in the required location usually ``/boot/``, makes the initial ramfs sets up the boot loader, you are now ready to reboot your system.
 
 
-******************************************
+==========================================
 Hands-on make menunconfig - tweak settings
-******************************************
+==========================================
 
 * Goto - File systems -> 
    mark ``Ext2`` as module i.e. ``M``  use spacebar to toggle between the possible values

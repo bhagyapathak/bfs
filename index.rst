@@ -6,19 +6,19 @@
 Welcome to Basic Filesystem's documentation!
 ============================================
 
-Contents:
-
 .. toctree::
     :maxdepth: 2
     :caption: Table of Contents
     :name: mastertoc
     :titlesonly:
 
-    Preface <doc/00_preface.rst>
-    Acknowledgement <doc/01_acknowledgment.rst>
-    Prerequisites <doc/03_prerequisites.rst>
-    Basics of Kernel Programming <doc/basics_kernel_programming/basics.rst>
-    Kernel Module Programming <doc/basics_kernel_programming/kernel_modules.rst>
+    Preface <doc/01_book/00_introduction.rst>
+    Basics of Kernel Programming <doc/02_basics_of_kernel_programming/00_introduction.rst>
+
+
+
+
+.. Kernel Module Programming <doc/basics_kernel_programming/kernel_modules.rst>
 
 Indices and tables
 ==================
